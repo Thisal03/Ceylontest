@@ -18,8 +18,8 @@ export default function LicenseTracking() {
   });
   const [attachedFiles, setAttachedFiles] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
-  const [_currentStatus, setCurrentStatus] = useState(2); // Using underscore prefix for unused state variable
-  const [_selectedCases, _setSelectedCases] = useState<string[]>([]); // Using underscore prefix for unused variables
+  const [currentStatus, setCurrentStatus] = useState(2); // Assuming status 2 (Preliminary Review) for example
+  const [selectedCases, setSelectedCases] = useState<string[]>([]);
   const [licenseDetails, _setLicenseDetails] = useState({
     licenseId: "LIC-2025-03452",
     applicantName: "Miner's Association Ltd.",
@@ -170,8 +170,6 @@ export default function LicenseTracking() {
     target: scrollRef,
     offset: ["start start", "end end"],
   });
-  // Using underscore prefix to indicate these are unused variables
-  // These transforms could be used for animations but are currently inactive
   const _rotateX = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const _rotateY = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const _scale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
@@ -289,23 +287,19 @@ export default function LicenseTracking() {
         file: null,
         description: ''
       });
-      
       // Reset file input by clearing the form
-      document.getElementById('file-upload-form').reset();
+      const form = document.getElementById('file-upload-form') as HTMLFormElement;
+      form?.reset();
     } catch (error) {
       setSuccessMessage('Failed to attach file. Please try again.');
     }
   };
 
-  const _fetchUserDetails = async () => {
+  const fetchUserDetails = async () => {
     try {
-      // Simulated API call
-      // const response = await fetch('/api/user/profile');
-      // const data = await response.json();
-      // setUserProfile(data);
+      // ... existing code ...
     } catch (_error) {
-      // Handle error
-      console.log('Error fetching user profile');
+      // ... existing code ...
     }
   };
 
@@ -405,7 +399,7 @@ export default function LicenseTracking() {
                   {/* Completed Progress */}
                   <div 
                     className="absolute top-4 left-0 h-1 bg-orange-500 rounded-full" 
-                    style={{ width: `${(_currentStatus - 1) * 25}%` }}
+                    style={{ width: `${(currentStatus - 1) * 25}%` }}
                   ></div>
                   
                   {/* Status Points */}
@@ -414,14 +408,14 @@ export default function LicenseTracking() {
                       <div key={status.id} className="flex flex-col items-center">
                         <div 
                           className={`w-8 h-8 rounded-full flex items-center justify-center z-10 mb-2 
-                            ${status.id <= _currentStatus 
+                            ${status.id <= currentStatus 
                               ? 'bg-orange-500 text-white' 
                               : isDarkMode 
                                 ? 'bg-gray-700 text-gray-400' 
                                 : 'bg-gray-200 text-gray-500'}`
                           }
                         >
-                          {status.id < _currentStatus ? (
+                          {status.id < currentStatus ? (
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
@@ -430,7 +424,7 @@ export default function LicenseTracking() {
                           )}
                         </div>
                         <p className={`text-sm font-medium text-center max-w-[100px] 
-                          ${status.id <= _currentStatus 
+                          ${status.id <= currentStatus 
                             ? isDarkMode ? 'text-white' : 'text-gray-800' 
                             : 'text-gray-500'}`
                         }>
