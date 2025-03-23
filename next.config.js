@@ -11,7 +11,11 @@ const nextConfig = {
   // Disable React strict mode for deployment
   reactStrictMode: false,
   // Allow TypeScript errors
-  distDir: '.next'
+  distDir: '.next',
+  // Add SWC minify for better performance
+  swcMinify: true,
+  // Improve loading performance
+  optimizeFonts: true
 };
 
 module.exports = nextConfig; 

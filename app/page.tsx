@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Head from 'next/head';
@@ -216,10 +216,6 @@ export default function Home() {
     target: scrollRef,
     offset: ["start start", "end end"],
   });
-  // Using underscore prefix to indicate these are unused variables
-  const _rotateX = useTransform(scrollYProgress, [0, 1], [0, 360]);
-  const _rotateY = useTransform(scrollYProgress, [0, 1], [0, 360]);
-  const _scale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -328,9 +324,42 @@ export default function Home() {
       featuresText: "Experience the seamless integration of digital licensing, automated royalty calculation, and sustainable mining oversight with CeylonMine.",
       testimonialsHeading: "WHAT OUR USERS SAY",
       testimonialsText: "Hear from industry professionals and stakeholders who have embraced the digital revolution with CeylonMine.",
-      userFooter: "All rights reserved."
+      userFooter: "All rights reserved.",
+      explore3DLabel: "INTERACTIVE EXPERIENCE",
+      requestDemo: "Request 3D Demo",
+      testimonialsLabel: "SUCCESS STORIES",
+      viewCaseStudies: "View Success Stories"
     },
     si: {
+      trackLicense: "බලපත්‍ර අයදුම්පත තරඟ කරන්න",
+      licenseTracking: "බලපත්‍ර අයදුම්පතේ තත්ත්වය",
+      trackingDescription: "අපගේ ලිහිල් ක්‍රියාවලිය හරහා ඔබගේ පතල් බලපත්‍ර අයදුම්පතේ තත්ත්වය ලුහුබඳින්න.",
+      licenseDetails: "බලපත්‍ර අයදුම්පත් විස්තර",
+      licenseId: "බලපත්‍ර අංකය",
+      applicantName: "අයදුම්කරුගේ නම",
+      applicationType: "අයදුම්පත් වර්ගය",
+      submissionDate: "ඉදිරිපත් කිරීමේ දිනය",
+      location: "ස්ථානය",
+      estimatedCompletion: "අවසන් කිරීමට අපේක්ෂිත දිනය",
+      currentStatus: "වත්මන් තත්ත්වය",
+      status1: "ඉදිරිපත් කරන ලදී",
+      status2: "මූලික සමාලෝචනය",
+      status3: "ලේඛන සත්‍යාපනය",
+      status4: "පාර්ශවකරුවන්ගේ උපදේශනය",
+      status5: "අවසන් අනුමැතිය",
+      announcements: "නිවේදන",
+      importantUpdate: "වැදගත් යාවත්කාලීනය",
+      additionalDocuments: "අතිරේක ලේඛන",
+      attachDescription: "ඔබගේ බලපත්‍ර අයදුම්පත සැකසීම සඳහා අවශ්‍ය ඕනෑම අතිරේක ලේඛන හෝ වාර්තා අමුණන්න.",
+      fileDescription: "ලේඛන විස්තරය",
+      attachFile: "ලේඛනය අමුණන්න",
+      submit: "ඉදිරිපත් කරන්න",
+      attachedDocuments: "අමුණා ඇති ලේඛන",
+      noAttachments: "තවමත් ලේඛන අමුණා නැත.",
+      downloadFile: "බාගන්න",
+      viewMore: "සියලුම නිවේදන බලන්න",
+      back: "ඩැෂ්බෝඩ් වෙත ආපසු යන්න",
+      allRightsReserved: "සියලු හිමිකම් ඇවිරිණි.",
       heroSubtitle: "ශ්‍රී ලංකාවේ läbima නීතිකරණ සහ සිදුරු ගණනය කිරීම ක්‍රියාත්මක කිරීමට විනිවිද පෙනෙනභාවය හා ස්ථාවරතාවය ඉහළ නංවා ගැනීම.",
       discoverMore: "තව දුරටත් සොයා බලන්න",
       explorePlatform: "වේදිකාව සොයා බලන්න",
@@ -343,7 +372,11 @@ export default function Home() {
       featuresText: "ඉතා ස්ථාවර දත්ත හා ස්වයංක්‍රීය රෝයල්ටි ගණනයක් සමඟ නීතිකරණ ක්‍රියාවලිය ස්වයංක්‍රීය කිරීමෙන් ඔබට අත්දැකීම් ලබා දෙන්න.",
       testimonialsHeading: "අපගේ පරිශීලකයින්ගේ අදහස්",
       testimonialsText: "CeylonMine සමඟ ඩිජිටල් විප්ලවය පිළිගෙන ඇති සංවිධානාත්මක වෘත්තිකයින්ගේ අදහස්.",
-      userFooter: "සියලු හිමිකම් ඇවිරිණි."
+      userFooter: "සියලු හිමිකම් ඇවිරිණි.",
+      explore3DLabel: "අන්තර්ක්රියාකාරී අත්දැකීම",
+      requestDemo: "3D ආදර්ශනයක් ඉල්ලන්න",
+      testimonialsLabel: "සාර්ථක කථා",
+      viewCaseStudies: "සාර්ථක කථා බලන්න"
     }
   };
 
@@ -615,11 +648,11 @@ export default function Home() {
           <motion.div
             key={index}
             className="relative aspect-square group float-animation"
-            style={{ '--index': index }}
+            style={{ '--index': `${index}` } as any}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            whileInView={{ 
+            whileInView={{
               opacity: 1, 
               y: 0,
               transition: { duration: 0.6, delay: index * 0.15 }
@@ -700,7 +733,7 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        {t.explore3DLabel || "INTERACTIVE EXPERIENCE"}
+        {(t as any).explore3DLabel || "INTERACTIVE EXPERIENCE"}
       </motion.span>
       
       <motion.h2 
@@ -912,7 +945,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <button className="py-3 px-8 bg-gradient-to-r from-orange-500 to-amber-600 text-white rounded-full font-medium shadow-lg transition-all duration-300 hover:shadow-orange-500/30 hover:scale-105">
-              {t.requestDemo || "Request 3D Demo"}
+              {(t as any).requestDemo || "Request 3D Demo"}
             </button>
           </motion.div>
         </div>
@@ -1084,7 +1117,7 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
           whileHover={{ 
-            z: 10,
+            scale: 1.05,
             transition: { duration: 0.2 }
           }}
         >
@@ -1094,7 +1127,6 @@ export default function Home() {
             } backdrop-blur-sm border ${
               isDarkMode ? 'border-gray-700' : 'border-gray-200'
             } shadow-xl transition-all duration-500`}
-            style={{ transformStyle: "preserve-3d" }}
             whileHover={{ 
               rotateY: 5,
               rotateX: 5,
@@ -1104,7 +1136,7 @@ export default function Home() {
             }}
           >
             {/* Icon with Gradient Background */}
-            <div className="mb-6" style={{ transform: "translateZ(30px)" }}>
+            <div className="mb-6 relative z-10">
               <div className="relative inline-block">
                 <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${feature.color} blur-md opacity-80`}></div>
                 <div className={`relative w-16 h-16 flex items-center justify-center rounded-full bg-gradient-to-br ${feature.color} text-4xl text-white shadow-lg`}>
@@ -1115,24 +1147,22 @@ export default function Home() {
             
             {/* Title */}
             <h3 
-              className={`text-xl font-bold mb-3 transition-transform ${
+              className={`text-xl font-bold mb-3 transition-transform relative z-[8] ${
                 isDarkMode ? 'text-white' : 'text-gray-800'
               }`}
-              style={{ transform: "translateZ(20px)" }}
             >
               {feature.title}
             </h3>
             
             {/* Description */}
             <p 
-              className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}
-              style={{ transform: "translateZ(15px)" }}
+              className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'} relative z-[7]`}
             >
               {feature.description}
             </p>
             
             {/* Button */}
-            <div className="mt-6" style={{ transform: "translateZ(25px)" }}>
+            <div className="mt-6 relative z-[9]">
               <motion.button 
                 className={`py-2 px-4 rounded-md text-sm font-medium bg-gradient-to-r ${feature.color} text-white shadow-lg`}
                 whileHover={{ scale: 1.05 }}
@@ -1344,7 +1374,7 @@ export default function Home() {
           ? 'bg-orange-900/30 text-white' 
           : 'bg-orange-100 text-orange-600'
       }`}>
-        {t.testimonialsLabel || "SUCCESS STORIES"}
+        {(t as any).testimonialsLabel || "SUCCESS STORIES"}
       </span>
       
       {/* Enhanced heading with better gradient */}
@@ -1410,7 +1440,7 @@ export default function Home() {
               <div className={`h-full w-full rounded-xl p-6 flex flex-col ${
                 isDarkMode ? 'bg-gray-800/90' : 'bg-white/95'
               }`} style={{ transformStyle: "preserve-3d" }}>
-                <div className="flex items-center mb-6" style={{ transform: "translateZ(20px)" }}>
+                <div className="flex items-center mb-6 relative z-[5]">
                   <div className="mr-4 relative">
                     <div className={`absolute inset-0 ${
                       isDarkMode ? 'bg-orange-600/30' : 'bg-orange-500/30'
@@ -1438,11 +1468,11 @@ export default function Home() {
                   </div>
                 </div>
                 
-                <p className="text-base flex-grow mb-6 italic" style={{ transform: "translateZ(10px)" }}>
+                <p className="text-base flex-grow mb-6 italic relative z-[4]">
                   {t[`testimonialText${(index % 6) + 1}`] || "This platform has completely transformed how our team collaborates. The 3D interface makes complex data visualization intuitive and engaging."}
                 </p>
                 
-                <div className="flex justify-between items-center mt-auto" style={{ transform: "translateZ(15px)" }}>
+                <div className="flex justify-between items-center mt-auto relative z-[5]">
                   <div className={`flex ${isDarkMode ? 'text-amber-400' : 'text-amber-500'}`}>
                     {[...Array(5)].map((_, i) => (
                       <svg key={i} xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -1503,7 +1533,7 @@ export default function Home() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.98 }}
       >
-        {t.viewCaseStudies || "View Success Stories"}
+        {(t as any).viewCaseStudies || "View Success Stories"}
       </motion.button>
     </div>
   </div>

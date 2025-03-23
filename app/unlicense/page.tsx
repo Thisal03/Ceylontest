@@ -170,9 +170,6 @@ export default function LicenseTracking() {
     target: scrollRef,
     offset: ["start start", "end end"],
   });
-  const _rotateX = useTransform(scrollYProgress, [0, 1], [0, 360]);
-  const _rotateY = useTransform(scrollYProgress, [0, 1], [0, 360]);
-  const _scale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
 
   const translations = {
     en: {
