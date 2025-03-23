@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Head from 'next/head';
 import Navbar from "./navbar/page";
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -43,9 +43,9 @@ export default function Home() {
       }
     ];
 
-    const nextImage = () => {
+    const nextImage = useCallback(() => {
       setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    };
+    }, [images.length]);
 
     const prevImage = () => {
       setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -216,6 +216,7 @@ export default function Home() {
     target: scrollRef,
     offset: ["start start", "end end"],
   });
+  // Using underscore prefix to indicate these are unused variables
   const _rotateX = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const _rotateY = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const _scale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);

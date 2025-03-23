@@ -18,9 +18,9 @@ export default function LicenseTracking() {
   });
   const [attachedFiles, setAttachedFiles] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
-  const [_currentStatus, setCurrentStatus] = useState(2); // Assuming status 2 (Preliminary Review) for example
-  const [selectedCases, setSelectedCases] = useState<string[]>([]);
-  const [licenseDetails, setLicenseDetails] = useState({
+  const [_currentStatus, setCurrentStatus] = useState(2); // Using underscore prefix for unused state variable
+  const [_selectedCases, _setSelectedCases] = useState<string[]>([]); // Using underscore prefix for unused variables
+  const [licenseDetails, _setLicenseDetails] = useState({
     licenseId: "LIC-2025-03452",
     applicantName: "Miner's Association Ltd.",
     applicationType: "Gem Mining",
@@ -28,7 +28,7 @@ export default function LicenseTracking() {
     location: "Ratnapura District, Western Province",
     estimatedCompletionDate: "2025-04-30"
   });
-  const [announcements, setAnnouncements] = useState([
+  const [announcements, _setAnnouncements] = useState([
     {
       id: 1,
       date: "2025-03-18",
@@ -170,6 +170,8 @@ export default function LicenseTracking() {
     target: scrollRef,
     offset: ["start start", "end end"],
   });
+  // Using underscore prefix to indicate these are unused variables
+  // These transforms could be used for animations but are currently inactive
   const _rotateX = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const _rotateY = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const _scale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
@@ -295,7 +297,7 @@ export default function LicenseTracking() {
     }
   };
 
-  const fetchUserDetails = async () => {
+  const _fetchUserDetails = async () => {
     try {
       // Simulated API call
       // const response = await fetch('/api/user/profile');
