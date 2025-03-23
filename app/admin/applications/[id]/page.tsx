@@ -6,7 +6,7 @@ import ApplicationTimeline from '../../../components/ApplicationTimeline';
 
 export default function AdminApplicationView() {
   const params = useParams();
-  const [application, setApplication] = useState<any>(null);
+  const [application, setApplication] = useState<Record<string, unknown>>(null);
   const [newStatus, setNewStatus] = useState('');
   const [comment, setComment] = useState('');
 
@@ -54,7 +54,7 @@ export default function AdminApplicationView() {
 
   useEffect(() => {
     fetchApplication();
-  }, [params.id]);
+  }, [params.id, fetchApplication]);
 
   if (!application) {
     return <div>Loading...</div>;

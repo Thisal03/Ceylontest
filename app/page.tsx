@@ -1,25 +1,20 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Navbar from "./navbar/page";
 import { motion, useScroll, useTransform } from 'framer-motion';
 import * as THREE from 'three';
-import Image from 'next/image';
-import Link from 'next/link';
 
 export default function Home() {
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [language, setLanguage] = useState<'en' | 'si'>('en');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState({});
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   // Image Slider Component
   const ImageSlider = () => {
-    const [currentImage, setCurrentImage] = useState(0);
     const images = [
       {
         src: "/images/1.jpg",
@@ -49,11 +44,11 @@ export default function Home() {
     ];
 
     const nextImage = () => {
-      setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+      setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
     };
 
     const prevImage = () => {
-      setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+      setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
     };
 
     useEffect(() => {
@@ -61,7 +56,7 @@ export default function Home() {
         nextImage();
       }, 5000);
       return () => clearInterval(interval);
-    }, []);
+    }, [nextImage]);
 
     return (
       <div className="relative w-full h-screen overflow-hidden">
@@ -71,8 +66,8 @@ export default function Home() {
             className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{
-              opacity: index === currentImage ? 1 : 0,
-              zIndex: index === currentImage ? 10 : 0
+              opacity: index === currentSlide ? 1 : 0,
+              zIndex: index === currentSlide ? 10 : 0
             }}
             transition={{ duration: 1 }}
           >
@@ -85,7 +80,7 @@ export default function Home() {
             <motion.div
               className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: index === currentImage ? 1 : 0, y: 0 }}
+              animate={{ opacity: index === currentSlide ? 1 : 0, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
@@ -148,9 +143,9 @@ export default function Home() {
           {images.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentImage(index)}
+              onClick={() => setCurrentSlide(index)}
               className={`w-3 h-3 rounded-full transition-all ${
-                index === currentImage ? 'bg-orange-500' : 'bg-white bg-opacity-50'
+                index === currentSlide ? 'bg-orange-500' : 'bg-white bg-opacity-50'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -221,9 +216,9 @@ export default function Home() {
     target: scrollRef,
     offset: ["start start", "end end"],
   });
-  const rotateX = useTransform(scrollYProgress, [0, 1], [0, 360]);
-  const rotateY = useTransform(scrollYProgress, [0, 1], [0, 360]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
+  const _rotateX = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  const _rotateY = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  const _scale = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -311,11 +306,11 @@ export default function Home() {
   }, [isDarkMode]);
 
   const nextSlide = () => {
-    setActiveSlide((prev) => (prev === features.length - 1 ? 0 : prev + 1));
+    setCurrentSlide((prev) => (prev === features.length - 1 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setActiveSlide((prev) => (prev === 0 ? features.length - 1 : prev - 1));
+    setCurrentSlide((prev) => (prev === 0 ? features.length - 1 : prev - 1));
   };
 
   const translations = {
@@ -406,15 +401,15 @@ export default function Home() {
                 <motion.div
                   key={feature.id}
                   className={`absolute inset-0 flex items-center ${
-                    index === activeSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                    index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
                   }`}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{
-                    opacity: index === activeSlide ? 1 : 0,
-                    scale: index === activeSlide ? 1 : 0.9,
-                    x: index === activeSlide
+                    opacity: index === currentSlide ? 1 : 0,
+                    scale: index === currentSlide ? 1 : 0.9,
+                    x: index === currentSlide
                       ? 0
-                      : index < activeSlide
+                      : index < currentSlide
                       ? -100
                       : 100
                   }}
@@ -518,9 +513,9 @@ export default function Home() {
                 {features.map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setActiveSlide(index)}
+                    onClick={() => setCurrentSlide(index)}
                     className={`w-3 h-3 rounded-full ${
-                      index === activeSlide
+                      index === currentSlide
                         ? 'bg-orange-500'
                         : isDarkMode
                         ? 'bg-white bg-opacity-50'

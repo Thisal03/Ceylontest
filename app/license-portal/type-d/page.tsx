@@ -277,7 +277,7 @@ export default function TypeALicense() {
       } else {
         // Handle nested file fields
         setFormData(prev => {
-          const sectionData = prev[section] as Record<string, any>;
+          const sectionData = prev[section] as Record<string, unknown>;
           return {
             ...prev,
             [section]: {
